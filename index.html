@@ -44,13 +44,13 @@ function show() {
     if (skootishFired) {
         answer.innerHTML = "YES";
         timer.innerHTML = "He was fired for " + whySkootishFired + " on " + whenSkootishFired.toDateString();
-        paid.innerHTML = `He was paid ${pad(Math.floor(elapsedDays) * dailySalaryDollars)} dollars.`;
+        paid.innerHTML = `He was paid ${pad(100 + Math.floor(elapsedDays) * dailySalaryDollars)} dollars.`;
         return;
     } else if (elapsedYears >= 99) {
         // I know there aren't 365 days in a year. I don't care.
         answer.innerHTML = "KINDA";
         timer.innerHTML = "He lasted all 99 years.";
-        paid.innerHTML = `He was paid ${pad(Math.floor(99 * 365) * dailySalaryDollars)} dollars.`;
+        paid.innerHTML = `He was paid ${pad(100 + Math.floor(99 * 365) * dailySalaryDollars)} dollars.`;
         return;
     } else {
         answer.innerHTML = "NO";
