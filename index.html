@@ -1,0 +1,71 @@
+<html>
+<head> 
+
+<title>
+Has skootish been fired yet?
+</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+
+<script type="text/javascript">
+
+// Phone shows 5:26 PM PT on this date
+var skootishEmploymentStartDate = new Date("2024-09-21T17:26:00-08:00");
+
+function pad(x) {
+    var s = x.toString();
+    if(s.length == 1) {
+        return "0" + s;
+    }
+    return s;
+}
+
+function show() {
+    var now = new Date();
+
+    var skootishFired = false;
+    var whySkootishFired = "I DON'T KNOW";
+    var whenSkootishFired = now;
+
+    var elapsedTime = whenSkootishFired - skootishEmploymentStartDate;
+    var elapsedSeconds = elapsedTime / 1000;
+    var elapsedMinutes = elapsedSeconds / 60;
+    var elapsedHours = elapsedMinutes / 60;
+    var elapsedDays = elapsedHours / 24;
+    var elapsedYears = elapsedDays / 365;
+    var dailySalaryDollars = 5;
+
+    var answer = document.getElementById("answer");
+    var timer = document.getElementById("timer");
+    var paid = document.getElementById("paid");
+
+    if (!skootishFired) {
+        answer.innerHTML = "NO";
+        timer.innerHTML = `${Math.floor(elapsedYears)} years, ${pad(Math.floor(elapsedDays)) % 365} days, ${pad(Math.floor(elapsedHours) % 24)} hours, ${pad(Math.floor(elapsedMinutes) % 60)} minutes, ${pad(Math.floor(elapsedSeconds) % 60)} seconds.`;
+        paid.innerHTML = `He has been paid ${pad(Math.floor(elapsedDays) * dailySalaryDollars)} dollars.`;
+        return;
+    } else {
+        answer.innerHTML = "YES";
+        timer.innerHTML = "He was fired for " + whySkootishFired + " on " + whenSkootishFired.toDateString();
+        paid.innerHTML = `He was paid ${pad(Math.floor(elapsedDays) * dailySalaryDollars)} dollars.`;
+        return;
+    }
+    answer.innerHTML = "I'M NOT SURE";
+    timer.innerHTML = "The code broke";
+    paid.innerHTML = "";
+}
+
+window.setInterval(show, 500);
+
+</script>
+
+<div id="answer"></div>
+<div id="paid"> </div>
+<div id="timer"> </div>
+<br/>
+<br/><br/><br/><br/>
+<div id="contact">If this is wrong, please tweet me at <a href="https://x.com/TensorProduct">@TensorProduct</a> so I can update this stupid website. <br/> Made with <a href="https://windsurf.ai">Windsurf</a>.</div>
+
+</body>
+</html>
