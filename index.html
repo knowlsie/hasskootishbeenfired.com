@@ -10,8 +10,8 @@ Has skootish been fired yet?
 
 <script type="text/javascript">
 
-// Phone shows 5:26 PM PT on this date
-var skootishEmploymentStartDate = new Date("2024-09-21T17:26:00-08:00");
+// Phone on stream shows 5:26 PM PDT on this date. Let's assume contract starts then.
+var skootishEmploymentStartDate = new Date("2024-09-21T17:26:00-07:00");
 
 function pad(x) {
     var s = x.toString();
@@ -36,21 +36,29 @@ function show() {
     var elapsedYears = elapsedDays / 365;
     var dailySalaryDollars = 5;
 
+
     var answer = document.getElementById("answer");
     var timer = document.getElementById("timer");
     var paid = document.getElementById("paid");
 
-    if (!skootishFired) {
-        answer.innerHTML = "NO";
-        timer.innerHTML = `${Math.floor(elapsedYears)} years, ${pad(Math.floor(elapsedDays)) % 365} days, ${pad(Math.floor(elapsedHours) % 24)} hours, ${pad(Math.floor(elapsedMinutes) % 60)} minutes, ${pad(Math.floor(elapsedSeconds) % 60)} seconds.`;
-        paid.innerHTML = `He has been paid ${pad(Math.floor(elapsedDays) * dailySalaryDollars)} dollars.`;
-        return;
-    } else {
+    if (skootishFired) {
         answer.innerHTML = "YES";
         timer.innerHTML = "He was fired for " + whySkootishFired + " on " + whenSkootishFired.toDateString();
         paid.innerHTML = `He was paid ${pad(Math.floor(elapsedDays) * dailySalaryDollars)} dollars.`;
         return;
+    } else if (elapsedYears >= 99) {
+        // I know there aren't 365 days in a year. I don't care.
+        answer.innerHTML = "KINDA";
+        timer.innerHTML = "He lasted all 99 years.";
+        paid.innerHTML = `He was paid ${pad(Math.floor(99 * 365) * dailySalaryDollars)} dollars.`;
+        return;
+    } else {
+        answer.innerHTML = "NO";
+        timer.innerHTML = `${Math.floor(elapsedYears)} years, ${pad(Math.floor(elapsedDays)) % 365} days, ${pad(Math.floor(elapsedHours) % 24)} hours, ${pad(Math.floor(elapsedMinutes) % 60)} minutes, ${pad(Math.floor(elapsedSeconds) % 60)} seconds.`;
+        paid.innerHTML = `He has been paid ${pad(Math.floor(elapsedDays) * dailySalaryDollars)} dollars.`;
+        return;
     }
+
     answer.innerHTML = "I'M NOT SURE";
     timer.innerHTML = "The code broke";
     paid.innerHTML = "";
